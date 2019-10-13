@@ -23,7 +23,7 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
                 var responce = client.ValideAsync("113365276", DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
 
                 Assert.IsTrue(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveType("113365276").First());
+                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveTypes("113365276").First());
             }
         }
 
@@ -36,7 +36,7 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
                 var responce = client.ValideAsync("114343325", DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
 
                 Assert.IsFalse(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveType("114343325").First());
+                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveTypes("114343325").First());
             }
         }
     }

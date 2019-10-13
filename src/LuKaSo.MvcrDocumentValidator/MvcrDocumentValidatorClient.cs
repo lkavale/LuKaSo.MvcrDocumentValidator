@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 
 namespace LuKaSo.MvcrDocumentValidator
 {
-    public class MvcrDocumentValidatorClient : IDisposable
+    public class MvcrDocumentValidatorClient : IMvcrDocumentValidatorClient, IDisposable
     {
         /// <summary>
         /// Service address
@@ -28,7 +28,7 @@ namespace LuKaSo.MvcrDocumentValidator
         /// <summary>
         /// Document types resolvers
         /// </summary>
-        private readonly List<IDocumentValidator> _documentTypeResolvers;
+        private readonly IEnumerable<IDocumentValidator> _documentTypeResolvers;
 
         /// <summary>
         /// Logger
@@ -40,7 +40,7 @@ namespace LuKaSo.MvcrDocumentValidator
         /// </summary>
         /// <param name="client">Client</param>
         /// <param name="documentTypeResolvers">Document type resolvers</param>
-        public MvcrDocumentValidatorClient(HttpClient client, List<IDocumentValidator> documentTypeResolvers)
+        public MvcrDocumentValidatorClient(HttpClient client, IEnumerable<IDocumentValidator> documentTypeResolvers)
         {
             client = client ?? throw new ArgumentNullException(nameof(client));
             documentTypeResolvers = documentTypeResolvers ?? throw new ArgumentNullException(nameof(documentTypeResolvers));
@@ -60,7 +60,7 @@ namespace LuKaSo.MvcrDocumentValidator
         /// </summary>
         /// <param name="documentId">Document id</param>
         /// <returns>Resolved types</returns>
-        public IEnumerable<DocumentType> ResolveType(string documentId)
+        public IEnumerable<DocumentType> ResolveTypes(string documentId)
         {
             return _documentTypeResolvers.Where(r => r.Resolve(documentId))
                 .Select(r => r.Type);

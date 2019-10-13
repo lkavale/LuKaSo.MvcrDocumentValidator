@@ -23,7 +23,7 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
                 var responce = client.ValideAsync("42540025", DocumentTypeRequest.GeenPassport).GetAwaiter().GetResult();
 
                 Assert.IsTrue(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveType("42540025").First());
+                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveTypes("42540025").First());
             }
         }
 
@@ -36,7 +36,7 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
                 var responce = client.ValideAsync("42340025", DocumentTypeRequest.GeenPassport).GetAwaiter().GetResult();
 
                 Assert.IsFalse(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveType("42340025").First());
+                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveTypes("42340025").First());
             }
         }
     }

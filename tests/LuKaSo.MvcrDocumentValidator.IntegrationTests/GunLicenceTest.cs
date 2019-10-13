@@ -23,7 +23,7 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
                 var responce = client.ValideAsync("AL363692", DocumentTypeRequest.GunLicense).GetAwaiter().GetResult();
 
                 Assert.IsTrue(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GunLicense, client.ResolveType("AL363692").First());
+                Assert.AreEqual(DocumentType.GunLicense, client.ResolveTypes("AL363692").First());
             }
         }
 
@@ -36,7 +36,7 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
                 var responce = client.ValideAsync("AL163692", DocumentTypeRequest.GunLicense).GetAwaiter().GetResult();
 
                 Assert.IsFalse(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GunLicense, client.ResolveType("AL163692").First());
+                Assert.AreEqual(DocumentType.GunLicense, client.ResolveTypes("AL163692").First());
             }
         }
     }

@@ -23,6 +23,6 @@ namespace LuKaSo.MvcrDocumentValidator.Infrastructure
         /// </summary>
         /// <param name="documentId">Document id</param>
         /// <returns>Resolved types</returns>
-        IEnumerable<DocumentType> ResolveType(string documentId);
+        IEnumerable<DocumentType> ResolveTypes(string documentId);
     }
 }

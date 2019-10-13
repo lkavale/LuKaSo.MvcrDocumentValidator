@@ -22,7 +22,7 @@ namespace LuKaSo.MvcrDocumentValidator.Validators
         /// <returns>Is resolved</returns>
         public bool Resolve(string id)
         {
-            return Regex.IsMatch(id, "[1-9]{0,1}[0-9]{0,8}");
+            return Regex.IsMatch(id, "^[1-9]{0,1}[0-9]{0,8}$");
         }
     }
 }

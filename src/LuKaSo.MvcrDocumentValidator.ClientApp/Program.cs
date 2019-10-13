@@ -1,22 +1,38 @@
-﻿using System;
+﻿using LuKaSo.MvcrDocumentValidator.Infrastructure;
+using LuKaSo.MvcrDocumentValidator.Validators;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net.Http;
 using System.Windows.Forms;
+using Unity;
+using Unity.Injection;
 
 namespace LuKaSo.MvcrDocumentValidator.ClientApp
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ValidatorForm());
+
+            UnityContainer container = new UnityContainer();
+
+            container.RegisterType<IMvcrDocumentValidatorClient, MvcrDocumentValidatorClient>()
+                .RegisterType<IDocumentValidator, GreenPassportValidator>("GreenPassportValidator")
+                .RegisterType<IDocumentValidator, PurplePassportValidator>("PurplePassportValidator")
+                .RegisterType<IDocumentValidator, NewIdentityCardValidator>("NewIdentityCardValidator")
+                .RegisterType<IDocumentValidator, OldIdentityCardValidator>("OldIdentityCardValidator")
+                .RegisterType<IDocumentValidator, GunLicenseValidator>("GunLicenseValidator")
+                .RegisterType<IEnumerable<IDocumentValidator>, IDocumentValidator[]>()
+                .RegisterType<HttpClient>(new InjectionFactory(x => new HttpClient()))
+                .RegisterType<ValidatorForm, ValidatorForm>();
+
+            Application.Run(container.Resolve<ValidatorForm>());
         }
     }
 }
