@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace LuKaSo.MvcrDocumentValidator.ClientApp
 {
+    /// <summary>
+    /// Application main form
+    /// </summary>
     public partial class ValidatorForm : Form
     {
         /// <summary>
@@ -54,6 +57,9 @@ namespace LuKaSo.MvcrDocumentValidator.ClientApp
         private async void BtnValidate_Click(object sender, EventArgs e)
         {
             var documentId = TbxDocumentId.Text;
+
+            _log.Debug($"Validation of document {documentId} started.");
+
             ClearOutput();
             ShowProgress();
             RunProgress();
@@ -71,7 +77,6 @@ namespace LuKaSo.MvcrDocumentValidator.ClientApp
 
                 var evidentedDocument = responces.FirstOrDefault(r => r.Responce != null && r.Responce.Evidented);
                 FillData(documentId, evidentedDocument != null, evidentedDocument != null ? (DocumentType?)evidentedDocument.Request.Type : null);
-
             }
             catch (Exception ex)
             {
@@ -80,6 +85,8 @@ namespace LuKaSo.MvcrDocumentValidator.ClientApp
             }
 
             HideProgress();
+
+            _log.Debug($"Validation of document {documentId} finished.");
         }
 
         /// <summary>

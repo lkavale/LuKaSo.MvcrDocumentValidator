@@ -102,7 +102,7 @@
       <DependentUpon>ValidatorForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

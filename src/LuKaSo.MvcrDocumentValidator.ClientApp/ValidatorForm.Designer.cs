@@ -145,7 +145,7 @@
             this.GbOutput.Controls.Add(this.LblDocumentStatus);
             this.GbOutput.Location = new System.Drawing.Point(12, 128);
             this.GbOutput.Name = "GbOutput";
-            this.GbOutput.Size = new System.Drawing.Size(948, 166);
+            this.GbOutput.Size = new System.Drawing.Size(948, 174);
             this.GbOutput.TabIndex = 9;
             this.GbOutput.TabStop = false;
             this.GbOutput.Text = "Výstup";
@@ -174,7 +174,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(972, 304);
+            this.ClientSize = new System.Drawing.Size(972, 314);
             this.Controls.Add(this.GbOutput);
             this.Controls.Add(this.pgrValidating);
             this.Controls.Add(this.GbInput);
