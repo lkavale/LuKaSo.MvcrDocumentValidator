@@ -6,6 +6,9 @@ using System.IO;
 
 namespace LuKaSo.MvcrDocumentValidator.UnitTests
 {
+    /// <summary>
+    /// Responce serializer test with example data from official page
+    /// </summary>
     [TestClass]
     public class ExampleSerializerTests
     {

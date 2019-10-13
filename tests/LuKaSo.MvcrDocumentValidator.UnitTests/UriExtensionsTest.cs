@@ -7,6 +7,9 @@ using System.Web;
 
 namespace LuKaSo.MvcrDocumentValidator.UnitTests
 {
+    /// <summary>
+    /// Uri extensions tests
+    /// </summary>
     [TestClass]
     public class UriExtensionsTest
     {

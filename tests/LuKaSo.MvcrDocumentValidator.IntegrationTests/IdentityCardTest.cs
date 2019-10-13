@@ -4,6 +4,9 @@ using System.Net.Http;
 
 namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
 {
+    /// <summary>
+    /// ID card integration test
+    /// </summary>
     [TestClass]
     public class IdentityCardTest
     {

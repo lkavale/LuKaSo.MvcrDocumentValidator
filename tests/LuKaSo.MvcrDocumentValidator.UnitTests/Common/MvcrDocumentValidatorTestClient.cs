@@ -13,6 +13,11 @@ namespace LuKaSo.MvcrDocumentValidator.UnitTests.Common
         {
         }
 
+        /// <summary>
+        /// Access internal serialization
+        /// </summary>
+        /// <param name="stream">Stream</param>
+        /// <returns>Document data</returns>
         public InvalidDocument Serialize(Stream stream)
         {
             return SerializeResponce<InvalidDocument>(stream);

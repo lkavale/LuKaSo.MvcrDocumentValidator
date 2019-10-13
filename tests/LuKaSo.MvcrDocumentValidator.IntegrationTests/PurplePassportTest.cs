@@ -4,6 +4,9 @@ using System.Net.Http;
 
 namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
 {
+    /// <summary>
+    /// Passport integration test
+    /// </summary>
     [TestClass]
     class PurplePassportTest
     {
