@@ -1,7 +1,7 @@
 ﻿namespace LuKaSo.MvcrDocumentValidator.Documents
 {
     /// <summary>
-    /// Document type
+    /// Document request type
     /// </summary>
     public enum DocumentTypeRequest
     {

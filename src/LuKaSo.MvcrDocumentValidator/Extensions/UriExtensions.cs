@@ -5,6 +5,9 @@ using System.Web;
 
 namespace LuKaSo.MvcrDocumentValidator.Extensions
 {
+    /// <summary>
+    /// Uri extensions
+    /// </summary>
     internal static class UriExtensions
     {
         /// <summary>
@@ -12,7 +15,7 @@ namespace LuKaSo.MvcrDocumentValidator.Extensions
         /// </summary>
         /// <param name="uri">Uri</param>
         /// <param name="parameters">Params to add</param>
-        /// <returns></returns>
+        /// <returns>Uri</returns>
         public static Uri AttachQueryParameters(this Uri uri, IReadOnlyDictionary<string, string> parameters)
         {
             var queryVars = HttpUtility.ParseQueryString(uri.Query);

@@ -1,4 +1,6 @@
-﻿using LuKaSo.MvcrDocumentValidator.ResponceXml;
+﻿using LuKaSo.MvcrDocumentValidator.Infrastructure;
+using LuKaSo.MvcrDocumentValidator.ResponceXml;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 
@@ -9,7 +11,7 @@ namespace LuKaSo.MvcrDocumentValidator.UnitTests.Common
     /// </summary>
     public class MvcrDocumentValidatorTestClient : MvcrDocumentValidatorClient
     {
-        public MvcrDocumentValidatorTestClient() : base(new HttpClient())
+        public MvcrDocumentValidatorTestClient() : base(new HttpClient(), new List<IDocumentValidator>())
         {
         }
 

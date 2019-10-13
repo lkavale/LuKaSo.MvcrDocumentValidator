@@ -1,10 +1,12 @@
 ﻿using LuKaSo.MvcrDocumentValidator.Documents;
 using LuKaSo.MvcrDocumentValidator.Extensions;
+using LuKaSo.MvcrDocumentValidator.Infrastructure;
 using LuKaSo.MvcrDocumentValidator.Logging;
 using LuKaSo.MvcrDocumentValidator.ResponceXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -24,6 +26,11 @@ namespace LuKaSo.MvcrDocumentValidator
         private readonly HttpClient _client;
 
         /// <summary>
+        /// Document types resolvers
+        /// </summary>
+        private readonly List<IDocumentValidator> _documentTypeResolvers;
+
+        /// <summary>
         /// Logger
         /// </summary>
         private readonly ILog _log;
@@ -32,9 +39,14 @@ namespace LuKaSo.MvcrDocumentValidator
         /// MVCR document validator
         /// </summary>
         /// <param name="client">Client</param>
-        public MvcrDocumentValidatorClient(HttpClient client)
+        /// <param name="documentTypeResolvers">Document type resolvers</param>
+        public MvcrDocumentValidatorClient(HttpClient client, List<IDocumentValidator> documentTypeResolvers)
         {
+            client = client ?? throw new ArgumentNullException(nameof(client));
+            documentTypeResolvers = documentTypeResolvers ?? throw new ArgumentNullException(nameof(documentTypeResolvers));
+
             _client = client;
+            _documentTypeResolvers = documentTypeResolvers;
             _log = LogProvider.For<MvcrDocumentValidatorClient>();
         }
 
@@ -44,12 +56,23 @@ namespace LuKaSo.MvcrDocumentValidator
         }
 
         /// <summary>
-        /// Check validity
+        /// Resolve type of document
         /// </summary>
-        /// <param name="documentId"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public async Task<InvalidDocument> Valide(string documentId, DocumentTypeRequest type)
+        /// <param name="documentId">Document id</param>
+        /// <returns>Resolved types</returns>
+        public IEnumerable<DocumentType> ResolveType(string documentId)
+        {
+            return _documentTypeResolvers.Where(r => r.Resolve(documentId))
+                .Select(r => r.Type);
+        }
+
+        /// <summary>
+        /// Check document validity
+        /// </summary>
+        /// <param name="documentId">Document id</param>
+        /// <param name="type">Type of document</param>
+        /// <returns>Document information</returns>
+        public async Task<InvalidDocument> ValideAsync(string documentId, DocumentTypeRequest type)
         {
             _log.Debug($"Start validation of document id {documentId} as {type.ToString()}");
 
@@ -62,7 +85,7 @@ namespace LuKaSo.MvcrDocumentValidator
 
             try
             {
-                var document = await GetRequest<InvalidDocument>(address).ConfigureAwait(false);
+                var document = await GetRequestAsync<InvalidDocument>(address).ConfigureAwait(false);
                 _log.Debug($"End validation of document id {documentId} as {type.ToString()}");
 
                 return document;
@@ -79,8 +102,8 @@ namespace LuKaSo.MvcrDocumentValidator
         /// </summary>
         /// <typeparam name="T">Get request to type</typeparam>
         /// <param name="address">Address</param>
-        /// <returns></returns>
-        protected async Task<T> GetRequest<T>(Uri address) where T : class
+        /// <returns>Responce</returns>
+        protected async Task<T> GetRequestAsync<T>(Uri address) where T : class
         {
             using (var responce = await _client.GetAsync(address).ConfigureAwait(false))
             using (var stream = await responce.Content.ReadAsStreamAsync().ConfigureAwait(false))
@@ -94,9 +117,11 @@ namespace LuKaSo.MvcrDocumentValidator
         /// </summary>
         /// <typeparam name="T">Serialize to type</typeparam>
         /// <param name="stream">Stream</param>
-        /// <returns></returns>
+        /// <returns>Serialized output</returns>
         protected T SerializeResponce<T>(Stream stream) where T : class
         {
+            stream = stream ?? throw new ArgumentNullException(nameof(stream));
+
             var serializer = new XmlSerializer(typeof(T));
             return serializer.Deserialize(stream) as T;
         }

@@ -19,7 +19,7 @@ namespace LuKaSo.MvcrDocumentValidator.ClientApp
         public ValidatorForm()
         {
             InitializeComponent();
-            _client = new MvcrDocumentValidatorClient(new HttpClient());
+            _client = new MvcrDocumentValidatorClient(new HttpClient(), new List<Infrastructure.IDocumentValidator>());
         }
 
         private async void BtnValidate_Click(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace LuKaSo.MvcrDocumentValidator.ClientApp
         {
             var tasks = Enum.GetValues(typeof(DocumentTypeRequest))
                 .Cast<DocumentTypeRequest>()
-                .Select(t => _client.Valide(tbxDocumentId.Text, t));
+                .Select(t => _client.ValideAsync(tbxDocumentId.Text, t));
 
             return await Task.WhenAll(tasks);
         }

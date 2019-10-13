@@ -1,4 +1,5 @@
 ﻿using LuKaSo.MvcrDocumentValidator.Documents;
+using LuKaSo.MvcrDocumentValidator.Infrastructure;
 using System.Text.RegularExpressions;
 
 namespace LuKaSo.MvcrDocumentValidator.Validators
@@ -9,9 +10,17 @@ namespace LuKaSo.MvcrDocumentValidator.Validators
     /// </summary>
     public class GreenPassportValidator : IDocumentValidator
     {
-        public DocumentTypeRequest Type => DocumentTypeRequest.GeenPassport;
+        /// <summary>
+        /// Document type
+        /// </summary>
+        public DocumentType Type => DocumentType.GeenPassport;
 
-        public bool Validate(string id)
+        /// <summary>
+        /// Resolve document id, if match document id specification
+        /// </summary>
+        /// <param name="id">Dcument id</param>
+        /// <returns>Is resolved</returns>
+        public bool Resolve(string id)
         {
             return Regex.IsMatch(id, "[1-9]{0,1}[0-9]{0,7}");
         }

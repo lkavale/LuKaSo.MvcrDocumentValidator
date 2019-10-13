@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29230.47
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuKaSo.MvcrDocumentValidator", "src\LuKaSo.MvcrDocumentValidator\LuKaSo.MvcrDocumentValidator.csproj", "{B1C61D6A-536B-4BFA-83FC-95D6B19D232A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuKaSo.MvcrDocumentValidator", "src\LuKaSo.MvcrDocumentValidator\LuKaSo.MvcrDocumentValidator.csproj", "{B1C61D6A-536B-4BFA-83FC-95D6B19D232A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuKaSo.MvcrDocumentValidator.UnitTests", "tests\LuKaSo.MvcrDocumentValidator.UnitTests\LuKaSo.MvcrDocumentValidator.UnitTests.csproj", "{CB60A300-2E82-4B27-BF16-339C3ABAD6C7}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuKaSo.MvcrDocumentValidator.ClientApp", "src\LuKaSo.MvcrDocumentValidator.ClientApp\LuKaSo.MvcrDocumentValidator.ClientApp.csproj", "{3BB0B264-3C56-41FE-B25C-45C5EEF841E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9938B180-A508-4E55-9D7D-C495AC329A99}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

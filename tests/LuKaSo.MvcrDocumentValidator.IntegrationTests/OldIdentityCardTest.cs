@@ -9,21 +9,21 @@ using System.Net.Http;
 namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
 {
     /// <summary>
-    /// Green passport integration test
+    /// Old ID card integration test
     /// </summary>
     [TestClass]
-    public class GreenPassportTest
+    public class OldIdentityCardTest
     {
         [TestMethod]
         public void InEvidence()
         {
             using (var httpClient = new HttpClient())
-            using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new GreenPassportValidator() }))
+            using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new OldIdentityCardValidator() }))
             {
-                var responce = client.ValideAsync("42540025", DocumentTypeRequest.GeenPassport).GetAwaiter().GetResult();
+                var responce = client.ValideAsync("AA321305", DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
 
                 Assert.IsTrue(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveType("42540025").First());
+                Assert.AreEqual(DocumentType.IdentityCardOld, client.ResolveType("AA321305").First());
             }
         }
 
@@ -31,12 +31,12 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
         public void NotInEvidence()
         {
             using (var httpClient = new HttpClient())
-            using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new GreenPassportValidator() }))
+            using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new OldIdentityCardValidator() }))
             {
-                var responce = client.ValideAsync("42340025", DocumentTypeRequest.GeenPassport).GetAwaiter().GetResult();
+                var responce = client.ValideAsync("AA325305", DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
 
                 Assert.IsFalse(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveType("42340025").First());
+                Assert.AreEqual(DocumentType.IdentityCardOld, client.ResolveType("AA325305").First());
             }
         }
     }
