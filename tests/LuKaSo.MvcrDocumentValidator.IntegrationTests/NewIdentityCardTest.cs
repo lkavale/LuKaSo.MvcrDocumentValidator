@@ -20,10 +20,10 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
             using (var httpClient = new HttpClient())
             using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new NewIdentityCardValidator() }))
             {
-                var responce = client.ValideAsync("113365276", DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
+                var responce = client.ValideAsync("113367896", DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
 
                 Assert.IsTrue(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveTypes("113365276").First());
+                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveTypes("113367896").First());
             }
         }
 
