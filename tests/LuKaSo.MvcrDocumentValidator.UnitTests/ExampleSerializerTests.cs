@@ -15,7 +15,7 @@ namespace LuKaSo.MvcrDocumentValidator.UnitTests
         [TestMethod]
         public void TestInEvidence()
         {
-            using (FileStream stream = File.OpenRead("InEvidence.xml"))
+            using (FileStream stream = File.OpenRead("Xmls/InEvidence.xml"))
             using (var client = new MvcrDocumentValidatorTestClient())
             {
                 var document = client.Serialize(stream);
@@ -43,7 +43,7 @@ namespace LuKaSo.MvcrDocumentValidator.UnitTests
         [TestMethod]
         public void TestNotInEvidence()
         {
-            using (FileStream stream = File.OpenRead("NotInEvidence.xml"))
+            using (FileStream stream = File.OpenRead("Xmls/NotInEvidence.xml"))
             using (var client = new MvcrDocumentValidatorTestClient())
             {
                 var document = client.Serialize(stream);
@@ -71,7 +71,7 @@ namespace LuKaSo.MvcrDocumentValidator.UnitTests
         [TestMethod]
         public void TestError()
         {
-            using (FileStream stream = File.OpenRead("Error.xml"))
+            using (FileStream stream = File.OpenRead("Xmls/Error.xml"))
             using (var client = new MvcrDocumentValidatorTestClient())
             {
                 var document = client.Serialize(stream);
