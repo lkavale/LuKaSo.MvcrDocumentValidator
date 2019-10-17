@@ -22,13 +22,17 @@ namespace LuKaSo.MvcrDocumentValidator.ClientApp
 
             UnityContainer container = new UnityContainer();
 
+            // IOC configuration
             container.RegisterType<IMvcrDocumentValidatorClient, MvcrDocumentValidatorClient>()
+
+                // Validators list setup
                 .RegisterType<IDocumentValidator, GreenPassportValidator>("GreenPassportValidator")
                 .RegisterType<IDocumentValidator, PurplePassportValidator>("PurplePassportValidator")
                 .RegisterType<IDocumentValidator, NewIdentityCardValidator>("NewIdentityCardValidator")
                 .RegisterType<IDocumentValidator, OldIdentityCardValidator>("OldIdentityCardValidator")
                 .RegisterType<IDocumentValidator, GunLicenseValidator>("GunLicenseValidator")
                 .RegisterType<IEnumerable<IDocumentValidator>, IDocumentValidator[]>()
+
                 .RegisterType<HttpClient>(new InjectionFactory(x => new HttpClient()))
                 .RegisterType<ValidatorForm, ValidatorForm>();
 

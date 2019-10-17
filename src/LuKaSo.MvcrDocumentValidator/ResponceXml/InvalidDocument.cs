@@ -16,6 +16,7 @@ namespace LuKaSo.MvcrDocumentValidator.ResponceXml
         [XmlElement(ElementName = "chyba")]
         public InvalidDocumentError Error { get; set; }
 
+
         [XmlIgnore]
         public DateTime LastChange { get; set; }
 

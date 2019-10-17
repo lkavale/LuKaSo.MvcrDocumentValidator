@@ -76,16 +76,9 @@ namespace LuKaSo.MvcrDocumentValidator
         {
             _log.Debug($"Start validation of document id {documentId} as {type.ToString()}");
 
-            var queryParams = new Dictionary<string, string>()
-            {
-                { "dotaz", documentId },
-                { "doklad", ((int)type).ToString() }
-            };
-            var address = _serviceAddress.AttachQueryParameters(queryParams);
-
             try
             {
-                var document = await GetRequestAsync<InvalidDocument>(address).ConfigureAwait(false);
+                var document = await GetRequestAsync<InvalidDocument>(PrepareAddress(documentId, type)).ConfigureAwait(false);
                 _log.Debug($"End validation of document id {documentId} as {type.ToString()}");
 
                 return document;
@@ -95,6 +88,23 @@ namespace LuKaSo.MvcrDocumentValidator
                 _log.Error(ex, $"Validation of document id {documentId} as {type.ToString()}");
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Prepare request service address
+        /// </summary>
+        /// <param name="documentId">Document id</param>
+        /// <param name="type">Type of document</param>
+        /// <returns>Address</returns>
+        protected Uri PrepareAddress(string documentId, DocumentTypeRequest type)
+        {
+            var queryParams = new Dictionary<string, string>()
+            {
+                { "dotaz", documentId },
+                { "doklad", ((int)type).ToString() }
+            };
+
+            return _serviceAddress.AttachQueryParameters(queryParams);
         }
 
         /// <summary>
