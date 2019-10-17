@@ -20,10 +20,14 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
             using (var httpClient = new HttpClient())
             using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new GreenPassportValidator() }))
             {
-                var responce = client.ValideAsync("42540025", DocumentTypeRequest.GeenPassport).GetAwaiter().GetResult();
+                var id = "42540025";
+                var responce = client.ValideAsync(id, DocumentTypeRequest.GeenPassport).GetAwaiter().GetResult();
 
                 Assert.IsTrue(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveTypes("42540025").First());
+                Assert.AreEqual(id, responce.Request.Number);
+                Assert.AreEqual("-", responce.Request.Serie);
+
+                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveTypes(id).First());
             }
         }
 
@@ -33,10 +37,14 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
             using (var httpClient = new HttpClient())
             using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new GreenPassportValidator() }))
             {
-                var responce = client.ValideAsync("42340025", DocumentTypeRequest.GeenPassport).GetAwaiter().GetResult();
+                var id = "42340025";
+                var responce = client.ValideAsync(id, DocumentTypeRequest.GeenPassport).GetAwaiter().GetResult();
 
                 Assert.IsFalse(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveTypes("42340025").First());
+                Assert.AreEqual(id, responce.Request.Number);
+                Assert.AreEqual("-", responce.Request.Serie);
+
+                Assert.AreEqual(DocumentType.GeenPassport, client.ResolveTypes(id).First());
             }
         }
     }

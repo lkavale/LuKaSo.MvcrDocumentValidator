@@ -20,10 +20,13 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
             using (var httpClient = new HttpClient())
             using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new GunLicenseValidator() }))
             {
-                var responce = client.ValideAsync("AL363692", DocumentTypeRequest.GunLicense).GetAwaiter().GetResult();
+                var id = "AL363692";
+                var responce = client.ValideAsync(id, DocumentTypeRequest.GunLicense).GetAwaiter().GetResult();
 
                 Assert.IsTrue(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GunLicense, client.ResolveTypes("AL363692").First());
+                Assert.AreEqual(id, $"{responce.Request.Serie}{responce.Request.Number}");
+
+                Assert.AreEqual(DocumentType.GunLicense, client.ResolveTypes(id).First());
             }
         }
 
@@ -33,10 +36,13 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
             using (var httpClient = new HttpClient())
             using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new GunLicenseValidator() }))
             {
-                var responce = client.ValideAsync("AL163692", DocumentTypeRequest.GunLicense).GetAwaiter().GetResult();
+                var id = "AL163692";
+                var responce = client.ValideAsync(id, DocumentTypeRequest.GunLicense).GetAwaiter().GetResult();
 
                 Assert.IsFalse(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.GunLicense, client.ResolveTypes("AL163692").First());
+                Assert.AreEqual(id, $"{responce.Request.Serie}{responce.Request.Number}");
+
+                Assert.AreEqual(DocumentType.GunLicense, client.ResolveTypes(id).First());
             }
         }
     }

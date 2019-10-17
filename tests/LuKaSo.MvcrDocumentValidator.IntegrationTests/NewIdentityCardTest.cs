@@ -20,10 +20,14 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
             using (var httpClient = new HttpClient())
             using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new NewIdentityCardValidator() }))
             {
-                var responce = client.ValideAsync("113367896", DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
+                var id = "113367896";
+                var responce = client.ValideAsync(id, DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
 
                 Assert.IsTrue(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveTypes("113367896").First());
+                Assert.AreEqual(id, responce.Request.Number);
+                Assert.AreEqual("-", responce.Request.Serie);
+
+                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveTypes(id).First());
             }
         }
 
@@ -33,10 +37,14 @@ namespace LuKaSo.MvcrDocumentValidator.IntegrationTests
             using (var httpClient = new HttpClient())
             using (var client = new MvcrDocumentValidatorClient(httpClient, new List<IDocumentValidator>() { new NewIdentityCardValidator() }))
             {
-                var responce = client.ValideAsync("114343325", DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
+                var id = "114343325";
+                var responce = client.ValideAsync(id, DocumentTypeRequest.IdentityCard).GetAwaiter().GetResult();
 
                 Assert.IsFalse(responce.Responce.Evidented);
-                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveTypes("114343325").First());
+                Assert.AreEqual(id, responce.Request.Number);
+                Assert.AreEqual("-", responce.Request.Serie);
+
+                Assert.AreEqual(DocumentType.IdentityCardNew, client.ResolveTypes(id).First());
             }
         }
     }
